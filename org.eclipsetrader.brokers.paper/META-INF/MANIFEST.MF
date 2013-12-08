@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Paper Trading
+Bundle-SymbolicName: org.eclipsetrader.brokers.paper;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipsetrader.internal.brokers.paper.Activator
+Bundle-Vendor: EclipseTrader.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipsetrader.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: javax.xml.bind;version="[2.0.0,3.0.0)",
+ javax.xml.bind.annotation;version="[2.0.0,3.0.0)",
+ javax.xml.bind.annotation.adapters;version="[2.0.0,3.0.0)",
+ javax.xml.bind.attachment;version="[2.0.0,3.0.0)",
+ javax.xml.bind.helpers;version="[2.0.0,3.0.0)",
+ javax.xml.bind.util;version="[2.0.0,3.0.0)",
+ javax.xml.stream;version="[2.0.0,3.0.0)",
+ javax.xml.stream.events;version="[2.0.0,3.0.0)",
+ javax.xml.stream.util;version="[2.0.0,3.0.0)",
+ org.apache.commons.logging
+Export-Package: org.eclipsetrader.internal.brokers.paper;x-internal:=true,
+ org.eclipsetrader.internal.brokers.paper.schemes;x-internal:=true,
+ org.eclipsetrader.internal.brokers.paper.transactions;x-internal:=true,
+ org.eclipsetrader.internal.brokers.paper.types;x-internal:=true

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipsetrader.core.trading.brokers">
+      <broker
+            class="org.eclipsetrader.internal.brokers.paper.PaperBrokerFactory"
+            id="org.eclipsetrader.brokers.paper"
+            name="Paper (Simulated)">
+      </broker>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipsetrader.ui.file.trade?after=additions">
+         <command
+               commandId="org.eclipsetrader.ui.file.trade"
+               label="Paper (Simulated)">
+            <visibleWhen>
+               <and>
+                  <count
+                        value="1">
+                  </count>
+               </and>
+            </visibleWhen>
+            <parameter
+                  name="broker"
+                  value="org.eclipsetrader.brokers.paper">
+            </parameter>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipsetrader.brokers.paper.category"
+            name="Paper Broker">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="org.eclipsetrader.brokers.paper.category"
+            class="org.eclipsetrader.internal.brokers.paper.NewAccountWizard"
+            hasPages="true"
+            id="org.eclipsetrader.brokers.paper.account"
+            name="Account">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="org.eclipsetrader.internal.brokers.paper.AccountPropertyPage"
+            id="org.eclipsetrader.brokers.paper.properties.account"
+            name="Account">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipsetrader.core.trading.IAccount">
+               <instanceof
+                     value="org.eclipsetrader.internal.brokers.paper.Account">
+               </instanceof>
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+
+</plugin>

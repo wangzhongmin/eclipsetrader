@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Archipelago
+Bundle-SymbolicName: org.eclipsetrader.archipelago;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipsetrader.archipelago.ArchipelagoPlugin
+Bundle-Vendor: EclipseTrader.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipsetrader.core,
+ org.eclipse.core.net
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.commons.logging;version="[1.0.0,2.0.0)"

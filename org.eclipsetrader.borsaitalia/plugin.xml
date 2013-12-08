@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         name="Borsa Italiana"
+         point="org.eclipsetrader.core.connectors">
+      <backfill
+            class="org.eclipsetrader.borsaitalia.internal.core.BackfillConnector"
+            id="org.eclipsetrader.borsaitalia"
+            name="Borsa Italiana">
+      </backfill>
+      <property
+            id="org.eclipsetrader.borsaitalia.isin"
+            name="ISIN">
+      </property>
+      <property
+            id="org.eclipsetrader.borsaitalia.code"
+            name="Code">
+      </property>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            category="org.eclipsetrader.ui.import.data"
+            class="org.eclipsetrader.borsaitalia.internal.ui.wizards.DataImportWizard"
+            icon="borsaitalia16.gif"
+            id="org.eclipsetrader.borsaitalia.wizard1"
+            name="Borsa Italiana">
+         <description>
+            Import historical data from Borsa Italiana.
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipsetrader.ui.import.instruments"
+            class="org.eclipsetrader.borsaitalia.internal.ui.wizards.InstrumentsImportWizard"
+            icon="borsaitalia16.gif"
+            id="org.eclipsetrader.borsaitalia.importInstrument"
+            name="Borsa Italiana">
+         <description>
+            Import instruments from Borsa Italiana.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipsetrader.core.providers">
+      <provider
+            class="org.eclipsetrader.borsaitalia.internal.ui.FeedIdentifierFactory"
+            id="org.eclipsetrader.borsaitalia.providers.symbol"
+            name="BorsaItaliana Symbol">
+      </provider>
+      <provider
+            class="org.eclipsetrader.borsaitalia.internal.ui.ISINFactory"
+            id="org.eclipsetrader.borsaitalia.providers.isin"
+            name="ISIN">
+      </provider>
+   </extension>
+
+</plugin>

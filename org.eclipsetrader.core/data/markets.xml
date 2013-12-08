@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<list>
+    <market weekDays="-MTWTF-" timeZone="America/New_York" name="New York">
+        <schedule>
+    		<time open="09:30" close="16:00"/>
+        </schedule>
+        <holidays>
+            <day date="2013-01-01">New Year's Day</day>
+            <day date="2013-07-04">Independence Day</day>
+            <day date="2013-12-25">Christmas</day>
+            <day date="2014-01-01">New Year's Day</day>
+            <day date="2014-07-04">Independence Day</day>
+            <day date="2014-12-25">Christmas</day>
+        </holidays>
+    </market>
+    <market weekDays="-MTWTF-" timeZone="Europe/Rome" name="Milan">
+        <schedule>
+    		<time open="08:00" close="09:00" description="Asta di apertura"/>
+    		<time open="09:00" close="17:25"/>
+            <time open="17:25" close="17:30" description="Asta di chiusura"/>
+    		<time open="18:00" close="20:30" description="After Hours">
+    			<exclude date="2013-01-03"/>
+                <exclude date="2013-01-04"/>
+                <exclude date="2013-03-28"/>
+                <exclude date="2013-04-25"/>
+                <exclude date="2013-04-26"/>
+                <exclude date="2013-04-29"/>
+                <exclude date="2013-04-30"/>
+                <exclude date="2013-08-02"/>
+                <exclude from="2013-08-05" to="2013-08-09"/>
+                <exclude from="2013-08-12" to="2013-08-16"/>
+                <exclude from="2013-08-19" to="2013-08-23"/>
+                <exclude date="2013-10-31"/>
+                <exclude date="2013-11-01"/>
+                <exclude from="2013-12-16" to="2013-12-20"/>
+                <exclude date="2013-12-23"/>
+                <exclude date="2013-12-27"/>
+                <exclude date="2013-12-30"/>
+    		</time>
+        </schedule>
+        <holidays>
+            <day date="2013-01-01">Primo Giorno dell'Anno</day>
+            <day date="2013-03-29">Venerdi Santo</day>
+            <day date="2013-04-01">Lunedi dell'Angelo</day>
+            <day date="2013-05-01">Festa del Lavoro</day>
+            <day date="2013-08-15">Assunzione</day>
+            <day date="2013-12-24">Vigilia di Natale</day>
+            <day date="2013-12-25">Natale</day>
+            <day date="2013-12-26">Santo Stefano</day>
+            <day date="2013-12-31">San Silvestro</day>
+            <day date="2014-01-01">Primo Giorno dell'Anno</day>
+            <day date="2014-05-01">Festa del Lavoro</day>
+            <day date="2014-08-15">Assunzione</day>
+            <day date="2014-12-24">Vigilia di Natale</day>
+            <day date="2014-12-25">Natale</day>
+            <day date="2014-12-26">Santo Stefano</day>
+            <day date="2014-12-31">San Silvestro</day>
+        </holidays>
+    </market>
+</list>

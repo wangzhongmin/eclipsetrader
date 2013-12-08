@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipsetrader.core.connectors">
+      <connector
+            class="org.eclipsetrader.archipelago.Level2Feed"
+            id="org.eclipsetrader.connectors.archipelago"
+            name="Archipelago">
+      </connector>
+   </extension>
+
+</plugin>

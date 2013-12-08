@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.commons
+Bundle-Version: 1.0.0.v200906221723
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Eclipse-BuddyPolicy: global
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
