@@ -23,16 +23,23 @@ import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipsetrader.repository.hibernate.HibernateRepository;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.eclipsetrader.repository.hibernate";
@@ -42,6 +49,8 @@ public class Activator extends AbstractUIPlugin {
 
     // The shared instance
     private static Activator plugin;
+    
+    private BundleContext m_context;
 
     private List<HibernateRepository> repositories = new ArrayList<HibernateRepository>();
 
@@ -57,7 +66,7 @@ public class Activator extends AbstractUIPlugin {
      */
     @Override
     public void start(BundleContext context) throws Exception {
-        super.start(context);
+    	m_context = context;
         plugin = this;
     }
 
@@ -72,7 +81,7 @@ public class Activator extends AbstractUIPlugin {
         }
 
         plugin = null;
-        super.stop(context);
+
     }
 
     /**
@@ -130,4 +139,16 @@ public class Activator extends AbstractUIPlugin {
             Activator.getDefault().getLog().log(status);
         }
     }
+    
+    public final IPath getStateLocation() throws IllegalStateException {
+		return InternalPlatform.getDefault().getStateLocation(getBundle(), true);
+	}
+	
+	public final ILog getLog() {
+		return InternalPlatform.getDefault().getLog(getBundle());
+	}
+	
+	 public Bundle getBundle(){
+	    	return m_context.getBundle();
+	    }
 }

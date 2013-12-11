@@ -11,10 +11,6 @@
 
 package org.eclipsetrader.repository.hibernate.internal;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.osgi.util.NLS;
-import org.eclipse.swt.widgets.Display;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public class RepositoryValidator {
@@ -25,7 +21,7 @@ public class RepositoryValidator {
 
     private static final String UPDATE_LABEL = "Update";
     private static final String CREATE_LABEL = "Create";
-    private static final String CANCEL_LABEL = IDialogConstants.CANCEL_LABEL;
+    private static final String CANCEL_LABEL = "Cancel";
 
     String name;
     AnnotationConfiguration cfg;
@@ -37,20 +33,21 @@ public class RepositoryValidator {
     }
 
     public int validate() {
-        Display.getDefault().syncExec(new Runnable() {
-
-            @Override
-            public void run() {
-                String message = NLS.bind("The repository {0} seems missing or not valid. Do you want to create or update it now ?", new Object[] {
-                    name
-                });
-                MessageDialog dlg = new MessageDialog(null, "Repository Validation", null, message, MessageDialog.QUESTION, new String[] {
-                        UPDATE_LABEL, CREATE_LABEL, CANCEL_LABEL
-                }, 0);
-                userChoice = dlg.open();
-            }
-        });
-
+//        Display.getDefault().syncExec(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                String message = NLS.bind("The repository {0} seems missing or not valid. Do you want to create or update it now ?", new Object[] {
+//                    name
+//                });
+//                MessageDialog dlg = new MessageDialog(null, "Repository Validation", null, message, MessageDialog.QUESTION, new String[] {
+//                        UPDATE_LABEL, CREATE_LABEL, CANCEL_LABEL
+//                }, 0);
+//                userChoice = dlg.open();
+//            }
+//        });
+    	
+    	userChoice = 0;
         return userChoice;
     }
 }

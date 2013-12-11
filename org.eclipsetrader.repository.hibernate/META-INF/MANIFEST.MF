@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.eclipsetrader.repository.hibernate;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipsetrader.repository.hibernate.internal.Activator
 Bundle-Vendor: EclipseTrader.org
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipsetrader.core,
  org.eclipse.core.variables,
  org.eclipse.core.expressions
@@ -112,6 +111,5 @@ Import-Package: javax.persistence;version="[1.0.0,1.0.0]",
 Export-Package: org.eclipsetrader.repository.hibernate,
  org.eclipsetrader.repository.hibernate.internal,
  org.eclipsetrader.repository.hibernate.internal.stores,
- org.eclipsetrader.repository.hibernate.internal.types,
- org.eclipsetrader.repository.hibernate.internal.ui;x-internal:=true
+ org.eclipsetrader.repository.hibernate.internal.types
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
