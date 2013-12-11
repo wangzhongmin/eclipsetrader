@@ -1,18 +1,22 @@
 package org.eclipsetrader.archipelago;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class ArchipelagoPlugin extends AbstractUIPlugin {
+public class ArchipelagoPlugin implements BundleActivator {
 
     public static final String PLUGIN_ID = "org.eclipsetrader.archipelago";
 
     private static ArchipelagoPlugin plugin;
+
+	private BundleContext m_context;
 
     /**
      * The constructor.
@@ -26,7 +30,7 @@ public class ArchipelagoPlugin extends AbstractUIPlugin {
      */
     @Override
     public void start(BundleContext context) throws Exception {
-        super.start(context);
+    	m_context = context;
     }
 
     /**
@@ -34,7 +38,6 @@ public class ArchipelagoPlugin extends AbstractUIPlugin {
      */
     @Override
     public void stop(BundleContext context) throws Exception {
-        super.stop(context);
         plugin = null;
     }
 
@@ -45,18 +48,15 @@ public class ArchipelagoPlugin extends AbstractUIPlugin {
         return plugin;
     }
 
-    /**
-     * Returns an image descriptor for the image file at the given
-     * plug-in relative path.
-     *
-     * @param path the path
-     * @return the image descriptor
-     */
-    public static ImageDescriptor getImageDescriptor(String path) {
-        return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipsetrader.archipelago", path);
-    }
-
     public static void log(IStatus status) {
         getDefault().getLog().log(status);
     }
+
+	public final ILog getLog() {
+		return InternalPlatform.getDefault().getLog(getBundle());
+	}
+
+	 public Bundle getBundle(){
+	    	return m_context.getBundle();
+	    }
 }

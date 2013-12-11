@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipsetrader.archipelago;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipsetrader.archipelago.ArchipelagoPlugin
 Bundle-Vendor: EclipseTrader.org
-Require-Bundle: org.eclipse.ui,
+Require-Bundle: 
  org.eclipse.core.runtime,
  org.eclipsetrader.core,
  org.eclipse.core.net
