@@ -24,17 +24,24 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipsetrader.core.internal.*;
 import org.eclipsetrader.core.ats.IStrategy;
 import org.eclipsetrader.core.ats.ITradingSystem;
 import org.eclipsetrader.core.ats.ITradingSystemContext;
 import org.eclipsetrader.core.ats.ITradingSystemInstrument;
+import org.eclipsetrader.core.ats.ITradingSystemProperties;
+import org.eclipsetrader.core.ats.engines.BaseEngine;
 import org.eclipsetrader.core.ats.engines.EngineEvent;
-import org.eclipsetrader.core.ats.engines.JavaScriptEngine;
+import org.eclipsetrader.core.ats.engines.IEngineService;
 import org.eclipsetrader.core.feed.IQuote;
 import org.eclipsetrader.core.feed.ITrade;
 import org.eclipsetrader.core.instruments.ISecurity;
+import org.eclipsetrader.core.repositories.IRepositoryService;
 import org.eclipsetrader.core.trading.IPosition;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 public class TradingSystem implements ITradingSystem {
 
@@ -42,7 +49,7 @@ public class TradingSystem implements ITradingSystem {
     private TradingSystemProperties properties;
 
     private final Map<ISecurity, TradingSystemInstrument> instruments = new HashMap<ISecurity, TradingSystemInstrument>();
-    private JavaScriptEngine engine;
+    private BaseEngine engine;
 
     private int status = STATUS_STOPPED;
 
@@ -102,6 +109,7 @@ public class TradingSystem implements ITradingSystem {
             }
         }
     };
+	private AtomicReference<IEngineService> m_engineServiceRef = new AtomicReference<IEngineService>();
 
     public TradingSystem(IStrategy strategy) {
         this.strategy = strategy;
@@ -176,7 +184,8 @@ public class TradingSystem implements ITradingSystem {
                 instrument.setPosition(position);
             }
         }
-        engine = new JavaScriptEngine(this, context);
+        IEngineService service = getEngineService();
+        engine = service.getCompatibleEngineFactory( strategy ).createEngine( this, context);
         engine.addObserver(observer);
         engine.start();
     }
@@ -228,4 +237,18 @@ public class TradingSystem implements ITradingSystem {
         }
         return null;
     }
+    
+	private IEngineService getEngineService() {
+		if (m_engineServiceRef.get() == null) {
+			BundleContext m_context = CoreActivator.getDefault().getBundle().getBundleContext();
+			ServiceReference<?> serviceReference = m_context
+					.getServiceReference(IEngineService.class.getName());
+			if (serviceReference != null) {
+				m_engineServiceRef.set((IEngineService) m_context
+						.getService(serviceReference));
+				m_context.ungetService(serviceReference);
+			}
+		}
+		return m_engineServiceRef.get();
+	}
 }

@@ -10,6 +10,7 @@
    <extension-point id="org.eclipsetrader.core.trading.alerts" name="Alerts" schema="schema/alerts.exsd"/>
    <extension-point id="org.eclipsetrader.core.trading.brokers" name="Brokers" schema="schema/brokers.exsd"/>
    <extension-point id="org.eclipsetrader.core.ats.javascript" name="JavaScript Extensions" schema="schema/javascript.exsd"/>
+   <extension-point id="org.eclipsetrader.core.ats.engines" name="Engine" schema="schema/engines.exsd"/>
    <extension
          point="org.eclipsetrader.core.launchers">
       <launcher
@@ -26,6 +27,11 @@
             class="org.eclipsetrader.core.internal.ats.TradingSystemsLauncher"
             id="org.eclipsetrader.core.ats.launcher"
             name="Automated Trading Systems">
+      </launcher>
+      <launcher
+      		class="org.eclipsetrader.core.internal.ats.engines.EngineServiceLauncher"
+      		id="org.eclipsetrader.core.ats.engine"
+      		name="Trade Engine Systems">
       </launcher>
    </extension>
    <extension

@@ -14,6 +14,7 @@ package org.eclipsetrader.core.internal.ats;
 import org.eclipsetrader.core.internal.CoreActivator;
 import org.eclipsetrader.core.markets.IMarketService;
 import org.eclipsetrader.core.repositories.IRepositoryService;
+import org.eclipsetrader.core.repositories.IRepositoryServiceFactory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
@@ -22,11 +23,11 @@ import org.osgi.framework.ServiceRegistration;
 
 public class TradingSystemServiceFactory implements ServiceFactory {
 
-    private final IRepositoryService repositoryService;
+    private final IRepositoryServiceFactory repositoryServiceFactory;
     private TradingSystemService serviceInstance;
 
-    public TradingSystemServiceFactory(IRepositoryService repositoryService) {
-        this.repositoryService = repositoryService;
+    public TradingSystemServiceFactory(IRepositoryServiceFactory repositoryServiceFactory) {
+        this.repositoryServiceFactory = repositoryServiceFactory;
     }
 
     /* (non-Javadoc)
@@ -38,7 +39,7 @@ public class TradingSystemServiceFactory implements ServiceFactory {
             BundleContext bundleContext = bundle.getBundleContext();
             ServiceReference<IMarketService> marketServiceReference = bundleContext.getServiceReference(IMarketService.class);
             IMarketService marketService = bundleContext.getService(marketServiceReference);
-            serviceInstance = new TradingSystemService(repositoryService, marketService);
+            serviceInstance = new TradingSystemService(repositoryServiceFactory.getService(bundle, registration), marketService);
             try {
                 serviceInstance.startUp();
             } catch (Exception e) {

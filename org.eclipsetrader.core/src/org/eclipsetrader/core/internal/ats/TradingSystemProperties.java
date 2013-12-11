@@ -11,10 +11,11 @@
 
 package org.eclipsetrader.core.internal.ats;
 
+import org.eclipsetrader.core.ats.ITradingSystemProperties;
 import org.eclipsetrader.core.trading.IAccount;
 import org.eclipsetrader.core.trading.IBroker;
 
-public class TradingSystemProperties {
+public class TradingSystemProperties implements ITradingSystemProperties {
 
     private boolean autostart;
     private IBroker broker;
@@ -24,27 +25,51 @@ public class TradingSystemProperties {
     public TradingSystemProperties() {
     }
 
-    public boolean isAutostart() {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#isAutostart()
+	 */
+    @Override
+	public boolean isAutostart() {
         return autostart;
     }
 
-    public void setAutostart(boolean autostart) {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#setAutostart(boolean)
+	 */
+    @Override
+	public void setAutostart(boolean autostart) {
         this.autostart = autostart;
     }
 
-    public IBroker getBroker() {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#getBroker()
+	 */
+    @Override
+	public IBroker getBroker() {
         return broker;
     }
 
-    public void setBroker(IBroker broker) {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#setBroker(org.eclipsetrader.core.trading.IBroker)
+	 */
+    @Override
+	public void setBroker(IBroker broker) {
         this.broker = broker;
     }
 
-    public IAccount getAccount() {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#getAccount()
+	 */
+    @Override
+	public IAccount getAccount() {
         return account;
     }
 
-    public void setAccount(IAccount account) {
+    /* (non-Javadoc)
+	 * @see org.eclipsetrader.core.internal.ats.ITradingSystemProperties#setAccount(org.eclipsetrader.core.trading.IAccount)
+	 */
+    @Override
+	public void setAccount(IAccount account) {
         this.account = account;
     }
 

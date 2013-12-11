@@ -25,18 +25,22 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipsetrader.core.ICurrencyService;
 import org.eclipsetrader.core.ats.ITradingSystemService;
+import org.eclipsetrader.core.ats.engines.IEngineService;
 import org.eclipsetrader.core.feed.IBackfillConnector;
 import org.eclipsetrader.core.feed.IFeedConnector;
 import org.eclipsetrader.core.feed.IFeedService;
 import org.eclipsetrader.core.instruments.ISecurity;
 import org.eclipsetrader.core.internal.ats.TradingSystemService;
 import org.eclipsetrader.core.internal.ats.TradingSystemServiceFactory;
+import org.eclipsetrader.core.internal.ats.engines.EngineService;
+import org.eclipsetrader.core.internal.ats.engines.EngineServiceFactory;
 import org.eclipsetrader.core.internal.feed.ConnectorOverrideAdapter;
 import org.eclipsetrader.core.internal.feed.FeedService;
 import org.eclipsetrader.core.internal.feed.FeedServiceFactory;
 import org.eclipsetrader.core.internal.markets.MarketService;
 import org.eclipsetrader.core.internal.markets.MarketServiceFactory;
 import org.eclipsetrader.core.internal.repositories.RepositoryService;
+import org.eclipsetrader.core.internal.repositories.RepositoryServiceFactory;
 import org.eclipsetrader.core.internal.trading.AlertService;
 import org.eclipsetrader.core.internal.trading.MarketBrokerAdapterFactory;
 import org.eclipsetrader.core.internal.trading.TradingService;
@@ -77,11 +81,13 @@ public class CoreActivator extends Plugin {
     // The shared instance
     private static CoreActivator plugin;
 
-    private RepositoryService repositoryService;
+    private RepositoryServiceFactory repositoryServiceFactory;
     private ServiceRegistration repositoryServiceRegistration;
 
     private FeedServiceFactory feedServiceFactory;
     private ServiceRegistration feedServiceRegistration;
+    private EngineServiceFactory engineServiceFactory;
+    private ServiceRegistration engineServiceRegistration;
     private MarketServiceFactory marketServiceFactory;
     private ServiceRegistration marketServiceRegistration;
     private CurrencyServiceFactory currencyServiceFactory;
@@ -115,11 +121,15 @@ public class CoreActivator extends Plugin {
         super.start(context);
         plugin = this;
 
-        repositoryService = new RepositoryService();
+        repositoryServiceFactory = new RepositoryServiceFactory();
         repositoryServiceRegistration = context.registerService(new String[] {
             IRepositoryService.class.getName(), RepositoryService.class.getName()
-        }, repositoryService, new Hashtable<String, Object>());
-        repositoryService.startUp();
+        }, repositoryServiceFactory, new Hashtable<String, Object>());
+        
+        engineServiceFactory = new EngineServiceFactory();
+        engineServiceRegistration = context.registerService(new String[] {
+        		IEngineService.class.getName(), EngineService.class.getName()
+        }, engineServiceFactory, new Hashtable<String, Object>());
 
         feedServiceFactory = new FeedServiceFactory();
         feedServiceRegistration = context.registerService(new String[] {
@@ -151,7 +161,7 @@ public class CoreActivator extends Plugin {
         }, alertService, new Hashtable<String, Object>());
         alertService.startUp();
 
-        tradingSystemServiceFactory = new TradingSystemServiceFactory(repositoryService);
+        tradingSystemServiceFactory = new TradingSystemServiceFactory(repositoryServiceFactory);
         tradingSystemServiceRegistration = context.registerService(new String[] {
             ITradingSystemService.class.getName(), TradingSystemService.class.getName()
         }, tradingSystemServiceFactory, new Hashtable<String, Object>());
@@ -216,7 +226,7 @@ public class CoreActivator extends Plugin {
         feedServiceFactory.dispose();
 
         repositoryServiceRegistration.unregister();
-        repositoryService.shutDown();
+        repositoryServiceFactory.dispose();
 
         plugin = null;
         super.stop(context);

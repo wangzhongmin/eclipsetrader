@@ -8,7 +8,8 @@ Bundle-Vendor: Eclipsetrader.org
 Require-Bundle: org.eclipse.core.runtime,
  javax.xml.bind,
  org.apache.commons.logging,
- org.mozilla.rhino
+ org.mozilla.rhino,
+ org.eclipse.osgi
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipsetrader.core,
  org.eclipsetrader.core.ats,
@@ -20,6 +21,7 @@ Export-Package: org.eclipsetrader.core,
  org.eclipsetrader.core.instruments,
  org.eclipsetrader.core.internal;x-friends:="org.eclipsetrader.ui",
  org.eclipsetrader.core.internal.ats;x-friends:="org.eclipsetrader.ui",
+ org.eclipsetrader.core.internal.ats.engines,
  org.eclipsetrader.core.internal.ats.repository;x-friends:="org.eclipsetrader.ui",
  org.eclipsetrader.core.internal.charts.repository;x-friends:="org.eclipsetrader.ui",
  org.eclipsetrader.core.internal.feed;x-friends:="org.eclipsetrader.ui",

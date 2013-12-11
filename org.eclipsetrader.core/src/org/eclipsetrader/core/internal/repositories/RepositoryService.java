@@ -39,6 +39,9 @@ import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipsetrader.core.feed.History;
 import org.eclipsetrader.core.feed.IFeedIdentifier;
 import org.eclipsetrader.core.feed.IHistory;
@@ -51,6 +54,7 @@ import org.eclipsetrader.core.repositories.IRepository;
 import org.eclipsetrader.core.repositories.IRepositoryChangeListener;
 import org.eclipsetrader.core.repositories.IRepositoryElementFactory;
 import org.eclipsetrader.core.repositories.IRepositoryProvider;
+import org.eclipsetrader.core.repositories.IRepositoryReference;
 import org.eclipsetrader.core.repositories.IRepositoryRunnable;
 import org.eclipsetrader.core.repositories.IRepositoryService;
 import org.eclipsetrader.core.repositories.IStore;
@@ -381,14 +385,18 @@ public class RepositoryService implements IRepositoryService {
      */
     @Override
     public void saveAdaptable(IAdaptable[] adaptables) {
-        saveAdaptable(adaptables, getRepository("local"));
+    	doSaveAdaptable( adaptables, new WeakRepositoryReference());
     }
 
     /* (non-Javadoc)
      * @see org.eclipsetrader.core.repositories.IRepositoryService#saveAdaptable(org.eclipse.core.runtime.IAdaptable[], org.eclipsetrader.core.repositories.IRepository)
      */
     @Override
-    public void saveAdaptable(IAdaptable[] adaptables, IRepository defaultRepository) {
+    public void saveAdaptable(IAdaptable[] adaptables, IRepository defaultRepository){
+    	doSaveAdaptable( adaptables, new StrongRepositoryReference(defaultRepository));
+    }
+    
+    private void doSaveAdaptable(IAdaptable[] adaptables, IRepositoryReference defaultRepositoryReference) {
         Map<IRepository, Set<IAdaptable>> repositories = new HashMap<IRepository, Set<IAdaptable>>();
         Map<IRepository, Set<ISchedulingRule>> rules = new HashMap<IRepository, Set<ISchedulingRule>>();
 
@@ -406,7 +414,7 @@ public class RepositoryService implements IRepositoryService {
             }
 
             for (IStoreObject object : storeObjects) {
-                IRepository repository = defaultRepository;
+                IRepository repository = defaultRepositoryReference.get(object);
                 IStore store = object.getStore();
                 if (store != null && store.getRepository() != null) {
                     repository = store.getRepository();

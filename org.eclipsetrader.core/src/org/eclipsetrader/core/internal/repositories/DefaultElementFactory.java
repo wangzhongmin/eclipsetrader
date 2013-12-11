@@ -103,9 +103,6 @@ public class DefaultElementFactory implements IRepositoryElementFactory, IExecut
             if (IScript.class.getName().equals(type)) {
                 return new Script(store, properties);
             }
-            if (IScriptStrategy.class.getName().equals(type)) {
-                return new ScriptStrategy(store, properties);
-            }
 
             // Attempt to construct the referenced class object directly
             try {

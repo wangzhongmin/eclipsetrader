@@ -148,31 +148,24 @@ public class MarketTest extends TestCase {
         assertEquals("Test", object.getName());
     }
 
-    public void testMarshalOpenTime() throws Exception {
-        Calendar date = Calendar.getInstance();
-        date.set(2007, Calendar.NOVEMBER, 6, 10, 0, 0);
-        Market object = new Market(null, Arrays.asList(new MarketTime[] {
-            new MarketTime(date.getTime(), null)
-        }));
-        assertEquals(prefix + "<market><schedule><time open=\"10:00\"/></schedule></market>", marshal(object));
-    }
-
-    public void testUnmarshalOpenTime() throws Exception {
+    public void testUnmarshalOpenCloseTime() throws Exception {
         Market object = unmarshal(prefix + "<market><schedule><time open=\"10:00\"/></schedule></market>");
         assertEquals("10:00", new TimeAdapter().marshal(object.getSchedule()[0].getOpenTime()));
     }
 
-    public void testMarshalCloseTime() throws Exception {
-        Calendar date = Calendar.getInstance();
-        date.set(2007, Calendar.NOVEMBER, 6, 10, 30, 0);
+    public void testMarshalOpenCloseTime() throws Exception {
+        Calendar openTime = Calendar.getInstance();
+        openTime.set(2007, Calendar.NOVEMBER, 6, 10, 10, 0);
+        Calendar closeTime = Calendar.getInstance();
+        closeTime.set(2007, Calendar.NOVEMBER, 6, 10, 30, 0);
         Market object = new Market(null, Arrays.asList(new MarketTime[] {
-            new MarketTime(null, date.getTime())
+            new MarketTime(openTime.getTime() , closeTime.getTime())
         }));
-        assertEquals(prefix + "<market><schedule><time close=\"10:30\"/></schedule></market>", marshal(object));
+        assertEquals(prefix + "<market><schedule><time open=\"10:10\" close=\"10:30\"/></schedule></market>", marshal(object));
     }
 
     public void testUnmarshalCloseTime() throws Exception {
-        Market object = unmarshal(prefix + "<market><schedule><time close=\"10:30\"/></schedule></market>");
+        Market object = unmarshal(prefix + "<market><schedule><time open=\"10:10\" close=\"10:30\"/></schedule></market>");
         assertEquals("10:30", new TimeAdapter().marshal(object.getSchedule()[0].getCloseTime()));
     }
 

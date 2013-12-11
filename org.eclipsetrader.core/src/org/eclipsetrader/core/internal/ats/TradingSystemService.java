@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipsetrader.core.ats.IStrategy;
 import org.eclipsetrader.core.ats.ITradingSystem;
 import org.eclipsetrader.core.ats.ITradingSystemListener;
+import org.eclipsetrader.core.ats.ITradingSystemProperties;
 import org.eclipsetrader.core.ats.ITradingSystemService;
 import org.eclipsetrader.core.ats.TradingSystemEvent;
 import org.eclipsetrader.core.internal.CoreActivator;
@@ -125,7 +126,7 @@ public class TradingSystemService implements ITradingSystemService {
     @Override
     public void start() {
         for (TradingSystem system : list) {
-            TradingSystemProperties properties = system.getProperties();
+            ITradingSystemProperties properties = system.getProperties();
             if (properties.isAutostart()) {
                 start(system);
             }

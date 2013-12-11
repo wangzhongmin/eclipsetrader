@@ -32,4 +32,5 @@ public interface ITradingSystem extends IAdaptable {
     public void start(ITradingSystemContext context) throws Exception;
 
     public void stop();
+    
 }

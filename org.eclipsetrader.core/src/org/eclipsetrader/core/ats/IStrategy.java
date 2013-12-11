@@ -12,6 +12,7 @@
 package org.eclipsetrader.core.ats;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipsetrader.core.ats.engines.IEngineFactory;
 import org.eclipsetrader.core.feed.TimeSpan;
 import org.eclipsetrader.core.instruments.ISecurity;
 
@@ -46,4 +47,5 @@ public interface IStrategy extends IAdaptable {
      * @return the bars timespan.
      */
     public TimeSpan[] getBarsTimeSpan();
+
 }

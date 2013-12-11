@@ -60,6 +60,7 @@ import org.eclipsetrader.core.internal.CoreActivator;
  * If securities don't belong to a market, the default feed connector is used.</p>
  *
  * @since 1.0
+ * TODO: There is a bug between OSGI and EasyMock
  */
 public class MarketPricingEnvironment implements IPricingEnvironment {
 
