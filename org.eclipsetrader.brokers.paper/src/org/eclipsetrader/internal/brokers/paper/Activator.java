@@ -11,20 +11,26 @@
 
 package org.eclipsetrader.internal.brokers.paper;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator  {
 
     public static final String PLUGIN_ID = "org.eclipsetrader.brokers.paper";
 
     private static Activator plugin;
 
     private AccountRepository repository;
+
+	private BundleContext m_context;
 
     /**
      * The constructor
@@ -38,12 +44,20 @@ public class Activator extends AbstractUIPlugin {
      */
     @Override
     public void start(BundleContext context) throws Exception {
-        super.start(context);
+    	m_context = context;
         plugin = this;
 
         repository = new AccountRepository();
         repository.load(getStateLocation().append("accounts.xml").toFile());
     }
+
+    public final IPath getStateLocation() throws IllegalStateException {
+		return InternalPlatform.getDefault().getStateLocation(getBundle(), true);
+	}
+
+	 public Bundle getBundle(){
+	    	return m_context.getBundle();
+	    }
 
     /*
      * (non-Javadoc)
@@ -56,7 +70,6 @@ public class Activator extends AbstractUIPlugin {
         new PaperBrokerFactory().dispose();
 
         plugin = null;
-        super.stop(context);
     }
 
     /**
@@ -74,6 +87,10 @@ public class Activator extends AbstractUIPlugin {
         }
         plugin.getLog().log(status);
     }
+    
+	public final ILog getLog() {
+		return InternalPlatform.getDefault().getLog(getBundle());
+	}
 
     public AccountRepository getRepository() {
         return repository;

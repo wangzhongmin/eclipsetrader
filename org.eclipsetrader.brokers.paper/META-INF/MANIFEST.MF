@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipsetrader.brokers.paper;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipsetrader.internal.brokers.paper.Activator
 Bundle-Vendor: EclipseTrader.org
-Require-Bundle: org.eclipse.ui,
+Require-Bundle: 
  org.eclipse.core.runtime,
  org.eclipsetrader.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
