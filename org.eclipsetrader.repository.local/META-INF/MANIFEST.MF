@@ -5,9 +5,9 @@ Bundle-SymbolicName: org.eclipsetrader.repository.local;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipsetrader.repository.local.internal.Activator
 Bundle-Vendor: EclipseTrader.org
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipsetrader.core
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipsetrader.core,
+ org.eclipse.osgi
 Bundle-ActivationPolicy: lazy
 Import-Package: javax.xml.bind;version="[2.1.0,2.2.0)",
  javax.xml.bind.annotation;version="[2.1.0,2.2.0)",

@@ -32,6 +32,7 @@ import org.eclipsetrader.repository.local.internal.ScriptsCollection;
 import org.eclipsetrader.repository.local.internal.SecurityCollection;
 import org.eclipsetrader.repository.local.internal.StrategiesCollection;
 import org.eclipsetrader.repository.local.internal.WatchListCollection;
+import org.eclipsetrader.repository.local.internal.Activator;
 
 public class RepositoryStore implements IStore {
 
@@ -63,7 +64,8 @@ public class RepositoryStore implements IStore {
      */
     @Override
     public IRepository getRepository() {
-        return store != null ? store.getRepository() : null;
+    	IRepository repo = Activator.getDefault().getRepository();
+        return repo != null ? repo : (store != null ? store.getRepository() : null);
     }
 
     /* (non-Javadoc)

@@ -11,21 +11,28 @@
 
 package org.eclipsetrader.repository.local.internal;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipsetrader.repository.local.LocalRepository;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleReference;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.eclipsetrader.repository.local";
 
     // The shared instance
     private static Activator plugin;
+    
+    private BundleContext m_context;
 
     private LocalRepository repository;
 
@@ -41,13 +48,17 @@ public class Activator extends AbstractUIPlugin {
      */
     @Override
     public void start(BundleContext context) throws Exception {
-        super.start(context);
         plugin = this;
 
+        m_context = context;
         repository = new LocalRepository(getStateLocation());
         repository.startUp();
     }
 
+    public Bundle getBundle(){
+    	return m_context.getBundle();
+    }
+    
     /*
      * (non-Javadoc)
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
@@ -57,7 +68,6 @@ public class Activator extends AbstractUIPlugin {
         repository.shutDown();
 
         plugin = null;
-        super.stop(context);
     }
 
     /**
@@ -84,4 +94,13 @@ public class Activator extends AbstractUIPlugin {
             System.err.println(status);
         }
     }
+    
+	public final IPath getStateLocation() throws IllegalStateException {
+		return InternalPlatform.getDefault().getStateLocation(getBundle(), true);
+	}
+	
+	public final ILog getLog() {
+		return InternalPlatform.getDefault().getLog(getBundle());
+	}
+    
 }
