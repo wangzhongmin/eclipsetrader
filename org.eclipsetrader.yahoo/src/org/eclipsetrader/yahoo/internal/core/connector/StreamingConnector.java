@@ -143,7 +143,7 @@ public class StreamingConnector extends SnapshotConnector {
             }
         } catch (Exception e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         } finally {
             try {
                 if (in != null) {

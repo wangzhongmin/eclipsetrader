@@ -214,10 +214,10 @@ public class FeedSubscription implements IFeedSubscription {
                 ((ISubscriptionListener) l[i]).quoteUpdate(event);
             } catch (Exception e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error notifying a quote update", e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             } catch (LinkageError e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error notifying a quote update", e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
     }

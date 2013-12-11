@@ -18,8 +18,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipsetrader.core.feed.IConnectorListener;
 import org.eclipsetrader.core.feed.IFeedConnector;
 import org.eclipsetrader.core.feed.IFeedIdentifier;
@@ -33,15 +31,15 @@ public class FeedConnector implements IFeedConnector, IExecutableExtension {
 
     private SnapshotConnector connector;
 
-    private IPropertyChangeListener propertyChangeListener = new IPropertyChangeListener() {
-
-        @Override
-        public void propertyChange(PropertyChangeEvent event) {
-            if (YahooActivator.PREFS_DRIVER.equals(event.getProperty())) {
-                onChangeDriver((String) event.getNewValue());
-            }
-        }
-    };
+//    private IPropertyChangeListener propertyChangeListener = new IPropertyChangeListener() {
+//
+//        @Override
+//        public void propertyChange(PropertyChangeEvent event) {
+//            if (YahooActivator.PREFS_DRIVER.equals(event.getProperty())) {
+//                onChangeDriver((String) event.getNewValue());
+//            }
+//        }
+//    };
 
     public FeedConnector() {
     }
@@ -54,14 +52,12 @@ public class FeedConnector implements IFeedConnector, IExecutableExtension {
         id = config.getAttribute("id");
         name = config.getAttribute("name");
 
-        String className = YahooActivator.getDefault().getPreferenceStore().getString(YahooActivator.PREFS_DRIVER);
         try {
-            connector = (SnapshotConnector) Class.forName(className).newInstance();
+            connector = new SnapshotConnector();
         } catch (Exception e) {
-            YahooActivator.log(new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error loding driver " + className, e));
+            YahooActivator.getDefault().log(new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error loding driver SapshotConnector", e));
             connector = new StreamingConnector();
         }
-        YahooActivator.getDefault().getPreferenceStore().addPropertyChangeListener(propertyChangeListener);
     }
 
     /* (non-Javadoc)
@@ -116,7 +112,7 @@ public class FeedConnector implements IFeedConnector, IExecutableExtension {
         try {
             connector = (SnapshotConnector) Class.forName(className).newInstance();
         } catch (Exception e) {
-            YahooActivator.log(new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error loding driver " + className, e));
+            YahooActivator.getDefault().log(new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error loding driver " + className, e));
             connector = new StreamingConnector();
         }
 

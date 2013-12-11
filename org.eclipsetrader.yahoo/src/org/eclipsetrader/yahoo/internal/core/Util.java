@@ -231,10 +231,7 @@ public class Util {
     }
 
     public static void setupProxy(HttpClient client, String host) throws URISyntaxException {
-        if (YahooActivator.getDefault() == null) {
-            return;
-        }
-        BundleContext context = YahooActivator.getDefault().getBundle().getBundleContext();
+        BundleContext context = YahooActivator.getDefault().getBundleContext();
         ServiceReference reference = context.getServiceReference(IProxyService.class.getName());
         if (reference != null) {
             IProxyService proxyService = (IProxyService) context.getService(reference);

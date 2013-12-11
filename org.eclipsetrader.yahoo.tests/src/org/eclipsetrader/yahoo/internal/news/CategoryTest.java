@@ -12,6 +12,7 @@
 package org.eclipsetrader.yahoo.internal.news;
 
 import java.io.File;
+import java.util.Locale.Category;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;

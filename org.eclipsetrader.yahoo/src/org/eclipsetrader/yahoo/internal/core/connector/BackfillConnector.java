@@ -125,7 +125,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
             }
         } catch (Exception e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
         return null;
     }
@@ -152,7 +152,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
 
             } catch (Exception e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
 
@@ -222,7 +222,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
                 }
             } catch (ParseException e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing data: " + inputLine, e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
     }
@@ -242,7 +242,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
                 }
             } catch (ParseException e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing data: " + inputLine, e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
     }
@@ -262,7 +262,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
                 }
             } catch (ParseException e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing data: " + inputLine, e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
     }
@@ -352,7 +352,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
                     }
                 } catch (ParseException e) {
                     Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing data: " + inputLine, e);
-                    YahooActivator.log(status);
+                    YahooActivator.getDefault().log(status);
                 }
             }
 
@@ -360,7 +360,7 @@ public class BackfillConnector implements IBackfillConnector, IExecutableExtensi
 
         } catch (Exception e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
 
         return list.toArray(new IDividend[list.size()]);

@@ -83,13 +83,13 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
 
         timeZone = TimeZone.getTimeZone("America/New_York");
 
-        dateTimeParser = new SimpleDateFormat("MM/dd/yyyy h:mma"); //$NON-NLS-1$
+        dateTimeParser = new SimpleDateFormat("MM/dd/yyyy HH:mma", Locale.US); //$NON-NLS-1$
         dateTimeParser.setTimeZone(timeZone);
 
         dateParser = new SimpleDateFormat("MM/dd/yyyy"); //$NON-NLS-1$
         dateParser.setTimeZone(timeZone);
 
-        timeParser = new SimpleDateFormat("h:mma"); //$NON-NLS-1$
+        timeParser = new SimpleDateFormat("h:mma", Locale.US); //$NON-NLS-1$
         timeParser.setTimeZone(timeZone);
 
         numberFormat = NumberFormat.getInstance(Locale.US);
@@ -196,7 +196,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
                 thread.join(30 * 1000);
             } catch (InterruptedException e) {
                 Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error stopping thread", e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
             thread = null;
         }
@@ -235,7 +235,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
             }
         } catch (Exception e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
     }
 
@@ -265,7 +265,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
 
         } catch (Exception e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error reading data", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         } finally {
             try {
                 if (in != null) {
@@ -276,7 +276,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
                 }
             } catch (Exception e) {
                 Status status = new Status(IStatus.WARNING, YahooActivator.PLUGIN_ID, 0, "Connection wasn't closed cleanly", e);
-                YahooActivator.log(status);
+                YahooActivator.getDefault().log(status);
             }
         }
     }
@@ -340,7 +340,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
             }
 
             Calendar c = Calendar.getInstance();
-            c.setTime(dateTimeParser.parse(date + " " + time)); //$NON-NLS-1$
+            c.setTime(dateTimeParser.parse(date+" " + time)); //$NON-NLS-1$
             c.set(Calendar.SECOND, 0);
             c.set(Calendar.MILLISECOND, 0);
             c.setTimeZone(TimeZone.getDefault());
@@ -351,7 +351,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
             return c.getTime();
         } catch (ParseException e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing date/time values", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
 
         return null;
@@ -364,7 +364,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
             }
         } catch (ParseException e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing number", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
         return null;
     }
@@ -376,7 +376,7 @@ public class SnapshotConnector implements Runnable, IFeedConnector, IExecutableE
             }
         } catch (ParseException e) {
             Status status = new Status(IStatus.ERROR, YahooActivator.PLUGIN_ID, 0, "Error parsing number", e);
-            YahooActivator.log(status);
+            YahooActivator.getDefault().log(status);
         }
         return null;
     }
