@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipsetrader.core.ats.engines">
+      <engine
+            class="org.eclipsetrader.engine.javascript.internal.JavaScriptEngineFactory"
+            id="javascript"
+            name="JavaScript Engine">
+      </engine>
+   </extension>
+
+</plugin>

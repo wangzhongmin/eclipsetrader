@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Javascript
+Bundle-SymbolicName: org.eclipsetrader.engine.javascript;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipsetrader.engine.javascript.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipsetrader.core,
+ org.mozilla.rhino,
+ org.apache.commons.logging;bundle-version="1.1.1",
+ org.eclipse.equinox.registry,
+ org.eclipse.osgi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipsetrader.engine.javascript.internal
